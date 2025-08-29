@@ -1,0 +1,497 @@
+# Ciencia y tecnología
+
+
+```{r}
+library(readxl)
+library(here)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+```
+
+
+```{r}
+# Leer el archivo Excel y la pestaña especificada
+datos <- read_excel("data/datos01_ciencia_tecnologia.xlsx", sheet = "ID_estad_act_i+d")
+```
+
+
+<span style="color:blue">
+**En 2023, Castilla-La Mancha destinó un total de 332,8 millones de euros a gastos en I+D interna**
+</span>
+
+Esta cifra representa apenas un 1,49% del total nacional (22.379 millones de euros). La distribución sectorial muestra que el mayor esfuerzo regional se concentra en el sector empresarial, que absorbe el 57,1% del gasto, seguido por la enseñanza superior (27,4%) y las administraciones públicas (15,3%). 
+
+En cuanto al personal dedicado a I+D, Castilla-La Mancha cuenta con 3.943 EJC y el número de mujeres investigadoras en la región es de 2.217, lo que supone un 1,9% del total nacional (115.204).
+
+
+```{r}
+# Extraer solo la fila de "Gastos en I+D interna (Miles €)" para CLM
+gastos_clm <- datos[1, 2:6]
+colnames(gastos_clm) <- c("Adm. Públicas", "Enseñanza Superior", "Empresas", "IPSFL", "Total")
+rownames(gastos_clm) <- "Gastos en I+D interna (Miles €)"
+
+# Crear tabla en LaTeX
+kable(gastos_clm, format = "latex", booktabs = TRUE, caption = "Gastos en I+D interna en Castilla-La Mancha (2023)") |>
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+
+```{r}
+
+# Extraer la fila de gastos en I+D interna (fila 1, columnas 2 a 6)
+gastos <- as.numeric(datos[1, 2:6])
+sectores <- c("Adm. Públicas", "Enseñanza Superior", "Empresas", "IPSFL", "Total")
+
+# Crear data frame
+df_clm <- data.frame(
+  Sector = sectores,
+  Gasto = gastos
+) |>
+  mutate(Porcentaje = round(Gasto / Gasto[Sector == "Total"] * 100, 2))
+
+# Mostrar tabla en LaTeX
+kable(df_clm, format = "latex", booktabs = TRUE,
+      caption = "Gastos en I+D interna por sector en Castilla-La Mancha (2023)") |>
+  kable_styling(latex_options = c("striped", "hold_position"))
+
+```
+
+
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Empresas con gasto en innovación y tipo de gasto*]
+\end{tcolorbox}
+
+
+
+```{r}
+#| label: barras-clm-multilinea
+#| fig-cap: "Empresas con gasto en innovación en Castilla-La Mancha"
+
+# Datos con etiquetas divididas en varias líneas
+datos_clm <- data.frame(
+  Tipo = c(
+    "Empresas con gasto en\nI+D interna",
+    "Empresas con gasto en\nadquisición de I+D\n(I+D externa)",
+    "Empresas con otros gastos\nde innovación\n(excluyendo I+D interna y externa)"
+  ),
+  Cantidad = c(183, 78, 547)
+)
+
+# Gráfico de barras horizontal
+ggplot(datos_clm, aes(x = Cantidad, y = Tipo)) +
+  geom_bar(stat = "identity", fill = "yellow", width = 0.6) +
+  geom_text(aes(label = Cantidad), hjust = -0.2, size = 4) +
+  labs(
+    title = "Empresas con gasto en innovación en Castilla-La Mancha",
+    x = "Número de empresas",
+    y = NULL
+  ) +
+  xlim(0, max(datos_clm$Cantidad) * 1.2) +
+  theme_minimal()
+
+```
+
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Innovación en CLM]
+El 12% de las empresas invirtió en I+D en 2022, mientras que en españa fue del 15%
+\end{tcolorbox}
+
+
+```{r}
+#| label: lollipop-innovacion
+#| fig-cap: "Intensidad de Innovación: España vs Castilla-La Mancha"
+
+# Datos
+datos <- data.frame(
+  Categoria = rep(c(
+    "Total de empresas",
+    "Empresas con gasto en innovación",
+    "Empresas con actividades de I+D"
+  ), each = 2),
+  Región = rep(c("España", "Castilla-La Mancha"), times = 3),
+  Intensidad = c(0.75, 0.93, 1.80, 1.61, 2.75, 1.90)
+)
+
+# Gráfico tipo lollipop
+ggplot(datos, aes(y = Categoria, x = Intensidad, color = Región)) +
+  geom_segment(aes(x = 0, xend = Intensidad, y = Categoria, yend = Categoria),
+               position = position_dodge(width = 0.6), size = 1.2) +
+  geom_point(position = position_dodge(width = 0.6), size = 4) +
+  geom_text(aes(label = Intensidad),
+            position = position_dodge(width = 0.6),
+            hjust = -0.3, size = 3.5) +
+  labs(
+    title = "Comparativo de intensidad de innovación",
+    subtitle = "España vs Castilla-La Mancha",
+    x = "BUSCAR LAS UNIDADES",
+    y = NULL
+  ) +
+  xlim(0, max(datos$Intensidad) + 0.5) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
+
+Para Julián:
+
+https://github.com/quarto-dev/quarto-cli/issues/8930
+
+
+::: callout-note
+## Tono objetivo y profesional
+
+Castilla-La Mancha se sitúa por debajo de la media nacional en telefonía fija, móviles, banda ancha y TV de pago.
+
+Guadalajara lidera en conectividad en CLM: más telefonía fija, banda ancha y TV de pago.
+
+Albacete y Cuenca, las provincias con menor penetración en la mayoría de servicios.
+
+La brecha digital persiste: CLM registra menos líneas y abonados que la media de España en todos los servicios analizados.
+
+:::
+
+
+
+TELECO (LINEAS POR CADA 100 HABITANTES)
+
+
+::: callout-info
+
+## Tono optimista
+
+Castilla-La Mancha avanza en digitalización con más de 98 líneas móviles por cada 100 habitantes.
+
+Guadalajara y Toledo impulsan la conectividad en la región con los mejores datos en banda ancha y telefonía fija.
+
+Más de 1 de cada 10 castellano-manchegos cuenta con televisión de pago.
+
+La telefonía fija sigue siendo un servicio presente en CLM con 31 líneas por cada 100 habitantes.
+
+La región mantiene un crecimiento sostenido en servicios de telecomunicaciones, aunque con margen para seguir acercándose a la media nacional.
+:::
+
+```{r}
+#| label: teleco-clm
+#| fig-cap: "Líneas telefónicas por cada 100 habitantes en Castilla-La Mancha (2023)"
+
+# Datos
+library(fmsb)
+teleco_servicios <- read_excel("data/datos01_ciencia_tecnologia.xlsx", 
+                               sheet= "TELECO_servicios")
+
+nombres_provincias <- teleco_servicios[[1]] # Guarda la primera columna (nombres)
+datos_radar_crudo <- as.data.frame(teleco_servicios[, -1]) # Crea un DF con el resto de columnas
+rownames(datos_radar_crudo) <- nombres_provincias # Asigna los nombres de las filas
+
+# 4. Preparar los datos para la función radarchart()
+# La primera fila debe ser el máximo y la segunda el mínimo de cada variable.
+# La escala de 0 a 110 funciona bien para estos datos.
+datos_preparados <- rbind(rep(110, 4), rep(0, 4), datos_radar_crudo)
+
+# 5. Definir los colores para cada una de las 7 líneas
+colores_lineas <- c("grey", "orange", "#4DAF4A", "yellow", "pink", "#377EB8", "red")
+
+# 6. Dibujar el gráfico de radar
+radarchart(datos_preparados,
+axistype = 1,
+pcol = colores_lineas,
+plty = 1,
+cglcol = "grey",
+cglty = 1,
+axislabcol = "grey",
+caxislabels = seq(0, 110, 20),
+title = "Servicios de telecomunicaciones por cada 100 habitantes (2023) UNIDADES",
+vlcex = 0.8)
+
+# 7. Añadir la leyenda para identificar las líneas
+legend("topright", legend = rownames(datos_preparados[3:9,]),
+bty = "n", pch = 20, col = colores_lineas,
+text.col = "black", cex = 0.5, pt.cex = 2)
+```
+
+
+TIC PC T1
+
+<span style="color:blue">
+**En 2024, el 55,8% del personal en Castilla-La Mancha utiliza ordenadores con fines empresariales, frente al 68,4% en España**
+</span>
+
+El uso de ordenadores en CLM alcanza el 47,4% en industria, 42,8% en construcción y 68,2% en servicios, cifras inferiores a las de España (60,1%, 52,9% y 73,4% respectivamente)
+
+
+
+TIC PC T2
+
+<span style="color:blue">
+En 2024, el 8,5% de las empresas de Castilla-La Mancha cuenta con especialistas en TIC, siendo la industria la que más apuesta por ellos (12,2%).
+</span>
+
+Mientras que en la construcción solo el 3,7% de las empresas emplea especialistas en TIC, en los servicios la cifra asciende al 7,7%.
+
+TIC PC T3
+
+```{r}
+#| label: lollipop-tic
+#| fig-cap: "Comparativo de Empresas con especialistas en TIC: España vs Castilla-La Mancha (2024)"
+
+tic_intern_web <- read_excel("data/datos01_ciencia_tecnologia.xlsx", 
+                               sheet= "TIC_intern_web_t3")
+
+# Renombrar la primera columna para facilitar el manejo
+colnames(tic_intern_web)[1] <- "Indicador"
+
+# divide el nombre de las variables en varias líneas para que se vea mejor
+
+
+# Transformar los datos a formato "largo" para ggplot2
+df_long <- tic_intern_web |>
+  pivot_longer(
+    cols = c(`Castilla-La Mancha`, `España`),
+    names_to = "Region",
+    values_to = "Valor"
+  )
+
+# Ordenar los datos por el valor de España para una mejor visualización
+df_long_ordered <- df_long |>
+  mutate(Indicador = reorder(Indicador, -ifelse(Region == "España", Valor, NA), na.rm = TRUE))
+# Crear el gráfico de "lollypop"
+ggplot(df_long_ordered, aes(x = Valor, y = Indicador)) +
+  
+  # Líneas horizontales que conectan los puntos
+  geom_line(aes(group = Indicador), color = "gray") +
+  # Puntos para cada región, diferenciados por color
+  geom_point(aes(color = Region), size = 4) +
+  
+  # Añadir etiquetas ajustadas para evitar solapamientos
+  geom_text(
+    aes(label = Valor, color = Region,
+        hjust = ifelse(Region == "España", -0.3, 1.3)), 
+    size = 3
+  ) +
+  theme_minimal() +
+    # Títulos y etiquetas del gráfico
+  labs(
+    title = "Indicadores TIC: Castilla-La Mancha vs. España (2024)",
+    subtitle = "Fuente: tic_intern_web",
+    x = "Porcentaje (%)",
+    y = "Indicador"
+  ) +
+  # Ajustar el eje x para dejar espacio para las etiquetas
+  xlim(min(df_long_ordered$Valor) - 5, max(df_long_ordered$Valor) + 5) +
+  # Paleta de colores para las regiones
+  scale_color_manual(values = c("Castilla-La Mancha" = "darkblue", "España" = "orange")) +
+  # Ajustar el tema para mejorar la apariencia
+  theme(
+    plot.title = element_text(size = 12, face = "bold"),
+#    plot.subtitle = element_text(size = 10, color = "gray50"),
+    axis.text.y = element_text(size = 8),
+    axis.title.x = element_text(size = 8),
+    axis.title.y = element_blank(), # Eliminar el título del eje Y
+    legend.position = "bottom", # Posición de la leyenda
+    legend.title = element_blank() # Eliminar el título de la leyenda
+  ) +
+# Función para envolver el texto del eje Y
+  scale_y_discrete(labels = function(x) str_wrap(x, width = 40))
+```
+
+
+
+
+
+
+```{r}
+#| eval: false
+# lee el archivo 
+load("data/municipalities.RData")
+
+ggplot(data = municipalities) +
+  geom_sf(aes(fill = kids_rate), colour = "#0000000A") +
+  scale_fill_viridis_c(option = "C") +  #C continua y D discreta
+  ggtitle(label = "kids rate CLM",
+          #subtitle = "(prueba)"
+          )
+```
+
+opción 2
+```{r}
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readxl)
+library(stringr)
+
+# Carga de datos
+tic_intern_web <- read_excel("data/datos01_ciencia_tecnologia.xlsx", 
+                             sheet = "TIC_intern_web_t3")
+
+# Renombrar la primera columna
+colnames(tic_intern_web)[1] <- "Indicador"
+
+# Transformar los datos a formato "largo"
+df_long <- tic_intern_web |>
+  pivot_longer(
+    cols = c(`Castilla-La Mancha`, `España`),
+    names_to = "Region",
+    values_to = "Valor"
+  )
+
+# Crear el gráfico de barras
+ggplot(df_long, aes(x = Valor, y = Indicador, fill = Region)) +
+  
+  # Barras horizontales
+  geom_bar(stat = "identity", position = "dodge") +
+  
+  # Añadir etiquetas de valor a las barras
+  geom_text(aes(label = Valor), 
+            position = position_dodge(width = 0.9),
+            hjust = -0.2, 
+            size = 3) +
+  
+  # Tema del gráfico
+  theme_minimal() +
+  
+  # Títulos y etiquetas del gráfico
+  labs(
+    title = "Comparación de Indicadores TIC: Castilla-La Mancha vs. España (2024)",
+    subtitle = "Fuente: TIC_intern_web_t3",
+    x = "Porcentaje (%)",
+    y = NULL
+  ) +
+  
+  # Ajustar el eje X para dar espacio a las etiquetas
+  xlim(0, max(df_long$Valor) + 10) +
+  # Paleta de colores para las regiones
+  scale_fill_manual(values = c("Castilla-La Mancha" = "darkblue", "España" = "orange")) +
+  # Ajustar el tema para una mejor apariencia
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 10, color = "gray50"),
+    legend.position = "bottom",
+    legend.title = element_blank()
+  ) +
+  # Usar str_wrap para dividir los nombres de las variables en el eje Y
+  scale_y_discrete(labels = function(x) str_wrap(x, width = 40))
+```
+
+
+<span style="color:blue">
+**La conexión a Internet alcanza a casi el 99% de las empresas en Castilla-La Mancha**
+</span>
+
+Solo un 49,6% del personal en empresas de CLM utiliza ordenadores conectados a Internet
+
+Las empresas de CLM tienen 6 puntos porcentuales menos de página web que la media nacional
+
+En CLM, la provisión de dispositivos portátiles a empleados se sitúa en el 34,16%
+
+Más del 95% de las empresas de Castilla-La Mancha cuentan con acceso fijo a Internet
+
+En el sector de la Construcción de CLM, un 96,69% de las empresas tienen acceso a Internet por banda ancha móvil
+
+
+TIC Teletrabajo T4
+
+En Castilla-La Mancha, el 47,44% de las empresas declara llevar a cabo reuniones remotas, mientras que el 24,12% permite a sus empleados realizar teletrabajo. No obstante, únicamente el 5,95% de los trabajadores teletrabaja de manera regular.
+
+TIC medios sociales T5
+
+En 2024, el 54,9% de las empresas de Castilla-La Mancha utiliza medios sociales, frente al 64,7% a nivel nacional, con mayor adopción en el sector servicios
+
+TIC publicidad T6
+
+El 21,4% de las empresas de Castilla-La Mancha invierte en publicidad en Internet, con mayor presencia en el sector servicios (22,97%) y menor en construcción (18,83%)
+
+TIC estadísticas T7
+
+el 21,23% de las empresas de Castilla-La Mancha realiza análisis de datos internamente, con mayor proporción en servicios (24,99%) e industria (23,79%), y mínima participación en construcción (7,52%).
+
+TIC Cloud computing T8
+
+La adquisición de servicios de cloud computing alcanza el 23,48% de las empresas de Castilla-La Mancha, con la adopción más elevada en industria (26,27%) y servicios (25,86%), y la más baja en construcción (12,63%)
+
+TIC IA T9
+
+El 7,63% de las empresas de Castilla-La Mancha emplea tecnologías de inteligencia artificial, frente al 12,38% a nivel nacional, con mayor adopción en el sector servicios (8,86%) y menor en industria (5,71%).
+
+TIC Gasto ciberseguridad e IA T10
+
+En 2024, las empresas de Castilla-La Mancha destinan 59.698 € de media a seguridad TIC, concentrando el mayor gasto en servicios (38.452 €) e industria (19.588 €), mientras que la inversión en sistemas de inteligencia artificial alcanza 8.107 €, concentrada principalmente en industria (7.729 €)
+
+
+TIC PORCENTAJE DE EMPRESAS CON MENOS DE 10 EMPLEADOS
+```{r}
+# Carga de datos
+tic_menos10_emp <- read_excel("data/datos01_ciencia_tecnologia.xlsx", 
+                             sheet = "TIC_menos10_emp_t12")
+
+# Mostrar la tabla en el informe con formato
+tic_menos10_emp |>
+  kable(caption = "Indicadores TIC en empresas con menos de 10 empleados (2024)") |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+
+
+# Crear tabla en LaTeX
+kable(gastos_clm, format = "latex", booktabs = TRUE, caption = "Gastos en I+D interna en Castilla-La Mancha (2023)") |>
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+```
+
+
+```{r}
+# Convertimos a formato largo para ggplot
+tic_long <- tic_menos10_emp %>%
+  pivot_longer(cols = c("Castilla-La Mancha", "España"),
+               names_to = "Region",
+               values_to = "Valor")
+
+# Tabla HTML/PDF usando str_wrap para acortar visualmente los nombres
+tic_menos10_emp %>%
+  mutate(Indicador = str_wrap(Indicador, width = 30)) %>%
+  kable(caption = "Indicadores TIC en empresas con menos de 10 empleados (2024)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+
+# Gráfico de barras horizontal con nombres envueltos
+ggplot(tic_long, aes(x = Indicador, y = Valor, fill = Region)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 25)) +  # nombres envueltos
+  labs(title = "Indicadores TIC en empresas con menos de 10 empleados (2024)",
+       x = "",
+       y = "Porcentaje / Valor") +
+  theme_minimal() +
+  scale_fill_manual(values = c("Castilla-La Mancha" = "#1f77b4", "España" = "#ff7f0e"))
+```
+
+
+::: {.tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Nota]
+El 54,9% de las empresas de Castilla-La Mancha utiliza medios sociales en 2024.
+:::
+
+::: {.tcolorbox}[colback=red!5!white,colframe=red!75!black,title=Advertencia]
+Solo el 7,63% de las empresas emplea tecnologías de Inteligencia Artificial.
+:::
+
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Nota]
+Contenido de la nota
+\end{tcolorbox}
+
+
+
+::: {.tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Nota]
+Esta es una nota sin `enhanced jigsaw`.
+:::
+
+
+
+
+
+

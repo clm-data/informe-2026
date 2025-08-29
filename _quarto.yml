@@ -1,0 +1,55 @@
+project:
+  type: book
+#  output-dir: docs
+  
+book:
+  title: "Castilla La-Mancha en datos"
+  author: "Gema"
+  date: "2026"
+  sharing: [twitter, facebook]
+  chapters:
+    - index.qmd
+    - clm01_ciencia_tecnologia.qmd
+    - clm02_comercio.qmd
+    - clm03_cultura_ocio.qmd
+    - clm04_demografia.qmd
+
+format:
+  html:
+    theme: cosmo
+    embed-resources: true
+    download: ["pdf", "epub"] 
+  
+  pdf:
+    documentclass: scrreprt
+    papersize: a4
+    fontsize: 11pt
+#    geometry: margin=2.5cm
+#    toc: true
+    number-sections: true
+    fig-align: center
+    header-includes:
+      - \usepackage[most]{tcolorbox}
+      - \usepackage{fancyhdr}
+      - \usepackage{xcolor}
+      - \usepackage{tcolorbox}      # Sin opciones avanzadas
+      - \usepackage{sectsty}
+      - \usepackage{titlesec}
+      - \usepackage{booktabs}
+      - \usepackage{longtable}
+      - \tcbuselibrary{skins}      # evita conflictos
+      - \pagestyle{fancy}
+      - \fancyhead[L]{Castilla-La Mancha en Datos}
+      - \fancyhead[C]{}
+      - \fancyhead[R]{\thepage}
+      - \fancyfoot{}
+      - \titleformat{\chapter}[hang]{\Huge\bfseries\color{blue}}{\thechapter}{1em}{}
+      - \titleformat{\section}[hang]{\Large\bfseries\color{teal}}{\thesection}{1em}{}
+execute:
+  echo: false
+  warning: false
+  fig-align: center
+#  fig-width: 6
+#  fig-height: 4
+  out.width: "60%"
+

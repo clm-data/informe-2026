@@ -1,0 +1,62 @@
+project:
+  type: book
+#  output-dir: docs
+  
+book:
+  title: "Castilla La-Mancha en datos"
+  author: "Gema"
+  date: "2026"
+  sharing: [twitter, facebook]
+  chapters:
+    - index.qmd
+    - clm01_ciencia_tecnologia.qmd
+    - clm02_comercio.qmd
+    - clm03_cultura_ocio.qmd
+    - clm04_demografia.qmd
+    # - clm05_deporte.qmd
+    # - clm06_economia.qmd
+    # - clm07_educacion.qmd
+    # - clm08_empleo.qmd
+    # - clm09_energia.qmd
+    # - clm10_hacienda.qmd
+    # - clm11_industria.qmd
+    # - clm12_legislacion_justicia.qmd
+    # - clm13_medio_ambiente.qmd
+    # - clm14_medio_rural.qmd
+    # - clm15_salud.qmd
+    # - clm16_sector_publico.qmd
+    # - clm17_seguridad.qmd
+    # - clm18_sociedad_bienestar.qmd
+    # - clm19_transporte.qmd
+    # - clm20_turismo.qmd
+    # - clm21_urbanismo_infraestrucutras.qmd
+    # - clm22_vivienda.qmd
+
+lang: es
+
+format:
+  html:
+    theme: cosmo
+    embed-resources: true
+    download: ["pdf", "epub"]
+  pdf:
+    documentclass: scrreprt
+    papersize: a4
+    fontsize: 11pt
+
+editor: source
+
+execute:
+  echo: false
+  eval: true
+  output: true
+  include: true
+  freeze: auto
+#  fig-height: 5
+#  fig-width: 6         # Ajusta el ancho del gráfico
+  fig-align: center    # Centra el gráfico
+  out.width: "30%"     # Ocupa el 60% del ancho de la página
+  warning: false
+  comment: "#>"
+
+
