@@ -3,7 +3,7 @@
 
 ```{r}
 library(readxl)
-library(here)
+#library(here)
 library(tidyverse)
 library(knitr)
 library(kableExtra)
@@ -84,7 +84,7 @@ datos_clm <- data.frame(
 
 # Gráfico de barras horizontal
 ggplot(datos_clm, aes(x = Cantidad, y = Tipo)) +
-  geom_bar(stat = "identity", fill = "yellow", width = 0.6) +
+  geom_bar(stat = "identity", fill =  "#377EB8", width = 0.6) +
   geom_text(aes(label = Cantidad), hjust = -0.2, size = 4) +
   labs(
     title = "Empresas con gasto en innovación en Castilla-La Mancha",
@@ -107,6 +107,9 @@ El 12% de las empresas invirtió en I+D en 2022, mientras que en españa fue del
 #| label: lollipop-innovacion
 #| fig-cap: "Intensidad de Innovación: España vs Castilla-La Mancha"
 
+library(ggplot2)
+library(dplyr)
+
 # Datos
 datos <- data.frame(
   Categoria = rep(c(
@@ -118,14 +121,34 @@ datos <- data.frame(
   Intensidad = c(0.75, 0.93, 1.80, 1.61, 2.75, 1.90)
 )
 
-# Gráfico tipo lollipop
+# Dataset con segmentos
+segmentos <- datos %>%
+  group_by(Categoria) %>%
+  summarise(
+    x_min = min(Intensidad),
+    x_max = max(Intensidad),
+    .groups = "drop"
+  )
+
+# Gráfico comparativo
 ggplot(datos, aes(y = Categoria, x = Intensidad, color = Región)) +
-  geom_segment(aes(x = 0, xend = Intensidad, y = Categoria, yend = Categoria),
-               position = position_dodge(width = 0.6), size = 1.2) +
-  geom_point(position = position_dodge(width = 0.6), size = 4) +
+  # segmentos entre España y CLM
+  geom_segment(
+    data = segmentos,
+    aes(x = x_min, xend = x_max, y = Categoria, yend = Categoria),
+    inherit.aes = FALSE,
+    color = "grey50",
+    size = 1.2
+  ) +
+  # puntos
+  geom_point(size = 4) +
+  # etiquetas separadas con un nudge vertical
   geom_text(aes(label = Intensidad),
-            position = position_dodge(width = 0.6),
+            position = position_nudge(y = c(-0.2, 0.2)),  # desplaza arriba/abajo
             hjust = -0.3, size = 3.5) +
+  # Paleta de colores para las regiones
+  scale_color_manual(values = c("Castilla-La Mancha" = "darkblue", "España" = "orange")) +
+  
   labs(
     title = "Comparativo de intensidad de innovación",
     subtitle = "España vs Castilla-La Mancha",
@@ -135,6 +158,8 @@ ggplot(datos, aes(y = Categoria, x = Intensidad, color = Región)) +
   xlim(0, max(datos$Intensidad) + 0.5) +
   theme_minimal() +
   theme(legend.position = "bottom")
+
+
 ```
 
 
@@ -437,25 +462,23 @@ tic_menos10_emp |>
   kable(caption = "Indicadores TIC en empresas con menos de 10 empleados (2024)") |>
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
-
-# Crear tabla en LaTeX
-kable(gastos_clm, format = "latex", booktabs = TRUE, caption = "Gastos en I+D interna en Castilla-La Mancha (2023)") |>
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 ```
 
 
 ```{r}
+
 # Convertimos a formato largo para ggplot
 tic_long <- tic_menos10_emp %>%
   pivot_longer(cols = c("Castilla-La Mancha", "España"),
                names_to = "Region",
                values_to = "Valor")
+ 
+# # Tabla HTML/PDF usando str_wrap para acortar visualmente los nombres
+# tic_menos10_emp %>%
+#   mutate(Indicador = str_wrap(Indicador, width = 30)) %>%
+#   kable(caption = "Indicadores TIC en empresas con menos de 10 empleados (2024)") %>%
+#   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
-# Tabla HTML/PDF usando str_wrap para acortar visualmente los nombres
-tic_menos10_emp %>%
-  mutate(Indicador = str_wrap(Indicador, width = 30)) %>%
-  kable(caption = "Indicadores TIC en empresas con menos de 10 empleados (2024)") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
 # Gráfico de barras horizontal con nombres envueltos
 ggplot(tic_long, aes(x = Indicador, y = Valor, fill = Region)) +
