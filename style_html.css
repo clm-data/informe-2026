@@ -1,0 +1,68 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+
+p code {
+  white-space: inherit;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+
+pre code {
+  white-space: inherit;
+}
+
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+
+
+/* Callout "note" personalizado */
+.callout-note {
+  border-left: 4px solid cyan;     /* borde cian */
+  background-color: #ffd6eb;       /* rosa claro */
+  color: black;                    /* texto negro */
+  padding: 0.8em;
+  border-radius: 6px;
+}
+
+/* Opcional: título del callout */
+.callout-note .callout-title {
+  font-weight: bold;
+  color: black;
+}
+
+
+
+.infobox {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #ecf7fd 5px center/3em no-repeat;
+}
+
+
+.infobox_resume {
+  padding: 1em 1em 1em 4em;
+  margin-bottom: 10px;
+  border: 2px solid orange;
+  border-radius: 10px;
+  background: #FAC0C0 5px center/3em no-repeat;
+}
+
+
+
+
+div.csl-entry {
+  clear: both;
+  margin-bottom: 10px;
+}
+

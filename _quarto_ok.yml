@@ -1,6 +1,6 @@
 project:
   type: book
-#  output-dir: docs
+  output-dir: docs
   
 book:
   title: "Castilla La-Mancha en datos"
@@ -13,50 +13,73 @@ book:
     - clm02_comercio.qmd
     - clm03_cultura_ocio.qmd
     - clm04_demografia.qmd
-    # - clm05_deporte.qmd
-    # - clm06_economia.qmd
-    # - clm07_educacion.qmd
-    # - clm08_empleo.qmd
-    # - clm09_energia.qmd
-    # - clm10_hacienda.qmd
-    # - clm11_industria.qmd
-    # - clm12_legislacion_justicia.qmd
-    # - clm13_medio_ambiente.qmd
-    # - clm14_medio_rural.qmd
-    # - clm15_salud.qmd
-    # - clm16_sector_publico.qmd
-    # - clm17_seguridad.qmd
-    # - clm18_sociedad_bienestar.qmd
-    # - clm19_transporte.qmd
-    # - clm20_turismo.qmd
-    # - clm21_urbanismo_infraestrucutras.qmd
-    # - clm22_vivienda.qmd
-
-lang: es
-
+    - clm05_deporte.qmd
+    - clm06_economia.qmd
+    - clm07_educacion.qmd
+    - clm08_empleo.qmd
+    - clm09_energia.qmd
+    - clm10_hacienda.qmd
+    - clm11_industria.qmd
+    - clm12_legislacion_justicia.qmd
+    - clm13_medio_ambiente.qmd
+    - clm14_medio_rural.qmd
+    - clm15_salud.qmd
+    - clm16_sector_publico.qmd
+    - clm17_seguridad.qmd
+    - clm18_sociedad_bienestar.qmd
+    - clm19_transporte.qmd
+    - clm20_turismo.qmd
+    - clm21_urbanismo_infraestrucutras.qmd
+    - clm22_vivienda.qmd
+    
 format:
   html:
+    css: style_html.css
     theme: cosmo
     embed-resources: true
-    download: ["pdf", "epub"]
+    download: ["pdf", "epub"] 
+    page-navigation: true
+    # sidebar: 
+    #   logo: "cover.png"
+
   pdf:
+    # include-in-header: style_latex.tex
+    # includes:
+    #   in_header: latex/preamble.tex
+    #   after_body: latex/after_body.tex
+    #   latex_engine: xelatex
     documentclass: scrreprt
     papersize: a4
-    fontsize: 11pt
+    fontsize: 10pt
+#    geometry: margin=2.5cm
+#    toc: true
+    number-sections: true
+    fig-align: center
+    header-includes:
+      - \usepackage[most]{tcolorbox}
+      - \usepackage{fancyhdr}
+      - \usepackage{xcolor}
+      - \usepackage{tcolorbox}      # Sin opciones avanzadas
+      - \usepackage{sectsty}
+      - \usepackage{titlesec}
+      - \usepackage{booktabs}
+      - \usepackage{longtable}
+      - \tcbuselibrary{skins}      # evita conflictos
+      - \pagestyle{fancy}
+      - \fancyhead[L]{Castilla-La Mancha en Datos}
+      - \fancyhead[C]{}
+      - \fancyhead[R]{\thepage}
+      - \fancyfoot{}
+      - \titleformat{\chapter}[hang]{\Huge\bfseries\color{blue}}{\thechapter}{1em}{}
+      - \titleformat{\section}[hang]{\Large\bfseries\color{teal}}{\thesection}{1em}{}
 
+lang: es
 editor: source
-
 execute:
   echo: false
-  eval: true
-  output: true
-  include: true
-  freeze: auto
-#  fig-height: 5
-#  fig-width: 6         # Ajusta el ancho del gráfico
-  fig-align: center    # Centra el gráfico
-  out.width: "30%"     # Ocupa el 60% del ancho de la página
   warning: false
-  comment: "#>"
-
+  fig-align: center
+#  fig-width: 6
+#  fig-height: 4
+  out.width: "60%"
 

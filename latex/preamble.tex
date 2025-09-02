@@ -1,0 +1,149 @@
+\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+%% \usepackage[spanish]{babel}  cambio este por el de abajo que soluciona el problema de las comillas
+\usepackage[spanish,shorthands=off]{babel} 
+\usepackage{amsthm} %% math
+\usepackage{fvextra}
+\usepackage{rotating}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}, fontsize=\small}
+
+
+
+
+
+
+
+% %%  ------------------  Tabla 
+% Tabla en lugar de cuadro
+\gappto\captionsspanish{\renewcommand{\tablename}{Tabla}
+          \renewcommand{\listtablename}{Índice de tablas}}
+
+
+
+%% -------------------- tamaño ------------- inicialmente 170 x 240
+
+%\usepackage[paperwidth = 170mm,
+%			paperheight = 240mm, top=3.25cm, bottom=2.5cm, left=2.5cm, right=2cm]{geometry}
+
+\usepackage[paperwidth = 190mm,
+			paperheight = 250mm, top=3cm, bottom=2.5cm, left=2.5cm, right=2cm]{geometry}
+\usepackage[a4, center, cam]{crop}
+\makeatother
+
+
+% headers: centra el encabezado y en minúsucula
+%  -------------------------------------------------------
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[CO]{\nouppercase{\emph{\rightmark}}}
+\fancyhead[CE]{\nouppercase{\emph{\leftmark}}}
+\fancyhead[RO]{\thepage}
+\fancyhead[LE]{\thepage}
+% no line in header or footer
+\renewcommand{\headrulewidth}{0pt}
+
+
+% Code chunk mods -------------------------------------------------------------
+
+%% color texto de comentarios
+%\renewcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+% está chulo pero el que mejor queda es el estandar, a no ser que cambiase el fondo de la chunk
+%\renewcommand{\CommentTok}[1]{\textcolor[rgb]{1, 0.7, 0.4}{\textbf{#1}}}
+
+
+
+% ----------- color encabezado 
+\usepackage{xcolor}
+\usepackage{sectsty}
+
+
+
+%\definecolor{colchap}{rgb}{1, 0.7, 0.4}
+\definecolor{colchap}{HTML}{A16C00}
+\chapterfont{\color{colchap}}  % sets colour of chapters         
+\sectionfont{\color{cyan}}  % sets colour of sections
+\subsectionfont{\color{teal}}  % sets colour of sections 
+\subsubsectionfont{\color{darkgray}}  % sets colour of sections
+
+%\definecolor{colsect}{rgb}{0.86, 0.65, 0.12}
+%\sectionfont{\color{colsect}}  % sets colour of sections
+
+
+
+%% ---------------- inline code -----------
+\usepackage{xcolor}
+%% \definecolor{bgcolor}{HTML}{ffcb7c} descomenta para poner el color de subrayado
+\definecolor{tcolor}{HTML}{A16C00}
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\textcolor{tcolor}{{\oldtexttt{#1}}}}
+
+
+%% ---------------- blocks -----------
+
+\usepackage{tcolorbox}
+
+% Redefinir estilo para callout de tipo "note"
+\definecolor{infoboxpink}{RGB}{255,214,235} % mismo tono que en HTML
+\definecolor{infoboxcyan}{RGB}{0,255,255}
+
+% \tcbset{
+%   quarto.note/.style={
+%     colback=infoboxpink,
+%     colframe=infoboxcyan,
+%     coltext=black,
+%     boxsep=5pt,
+%     arc=4pt,
+%     left=6pt,
+%     right=6pt,
+%     top=6pt,
+%     bottom=6pt,
+%   }
+% }
+% 
+% % Definir entorno que Quarto usará para los callouts tipo "note"
+% \newtcolorbox{calloutnote}[1][]{quarto.note, #1}
+
+
+% 
+% \newtcolorbox{infobox}{
+%   colback= pink!45!white,
+%   colframe= cyan,
+%   coltext=black,
+%   boxsep=5pt,
+%   arc=4pt}
+%   
+% 
+% \newtcolorbox{infobox_blue}{
+%   colback= blue!5!white,
+%   colframe= blue!75!black,
+%   coltext=black,
+%   title=Nota,
+%   boxsep=5pt,
+%   arc=4pt}
+%     
+% 
+% \newtcolorbox{infobox_resume} {
+%  colback=yellow!40!white,
+%   colframe=teal,
+%   coltext=black,
+%   boxsep=5pt,
+%   arc=4pt}
+%   
+  %%%%  -------------  color de texto -----------
+  
+\usepackage{xcolor}
+
+\newcommand{\textred}[1]{\textcolor{red}{#1}}
+
+\newcommand{\textblue}[1]{\textcolor{blue}{#1}}
+
+  
+  
+  %% ---------------- índice de contenidos -----------
+
+ \usepackage{makeidx}
+ \makeindex
+
+  

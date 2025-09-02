@@ -1,0 +1,25 @@
+\makeatletter
+\pagestyle{fancy}
+\fancyhf{} % limpiamos encabezados/pies
+
+% Encabezado (banner rojo con título de capítulo)
+\fancyhead[L]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[bannerred] (current page.north west) rectangle ([yshift=-1.2cm]current page.north east);
+    \node[anchor=north west, xshift=1cm, yshift=-0.5cm, text=white, font=\bfseries\large] 
+      at (current page.north west) {\leftmark};
+  \end{tikzpicture}%
+}
+
+% Pie (banner amarillo con título del libro)
+\fancyfoot[L]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[banneryellow] (current page.south west) rectangle ([yshift=1.2cm]current page.south east);
+    \node[anchor=south west, xshift=1cm, yshift=0.3cm, font=\bfseries\large] 
+      at (current page.south west) {\@title};
+  \end{tikzpicture}%
+}
+
+\setlength{\headheight}{1.5cm}
+\setlength{\footskip}{2cm}
+\makeatother
