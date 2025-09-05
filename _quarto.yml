@@ -36,7 +36,7 @@ format:
   html:
     css: style_html.css
     theme: cosmo
-    embed-resources: true
+    #embed-resources: true
     download: ["pdf", "epub"] 
     page-navigation: true
     # sidebar: 
