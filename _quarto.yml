@@ -8,10 +8,15 @@ book:
   date: "2026"
   sharing: [twitter, facebook]
   downloads: [pdf, epub]
-  cover-image: cover.png
+  favicon: img/logo.png
+  description: xxxxxxxxxxx
+  keyword: xxxxxxxxxxxxx
   sidebar:
+    logo: img/logo.png
     style: docked
     background: light
+  image: img/logo.png
+  
   chapters:
     - index.qmd
     - clm01_ciencia_tecnologia.qmd
@@ -40,7 +45,7 @@ book:
 format:
   html:
     css: style_html.css
-    theme: cosmo
+    theme: zephyr #cosmo
     #embed-resources: true
     download: ["pdf", "epub"] 
     page-navigation: true

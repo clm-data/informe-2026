@@ -16,28 +16,57 @@ pre code {
   white-space: inherit;
 }
 
-.red {
-  color: red;
+
+/* Colores para encabezados (Headers) */
+
+// base-colors
+
+$azul_jccm:   #002855 !default;
+$azul_odd:    #64c9e1 !default;
+$rojo_spain:  #820046 !default;
+$gris_jccm:   #777779 !default;
+$dorado:      #b49600 !default;
+
+
+h1 {
+  color: $dorado;
 }
+
+h2 {
+  color: $azul_jccm;
+}
+
+h3 {
+  color: $rojo_spain;
+}
+
+
+.red {
+  color: #c41e3a;
+}
+
 .blue {
-  color: blue;
+  color: #91c5ff;
 }
 
 
 /* Callout "note" personalizado */
 .callout-note {
-  border-left: 4px solid cyan;     /* borde cian */
-  background-color: #ffd6eb;       /* rosa claro */
-  color: black;                    /* texto negro */
+  border-left: 22px solid #002855;     /* borde azul oscuro */
+  background-color: #91c5ff;           /* color de fondo del cuadro */
+  color: #002855;                      /* texto del cuerpo en azul oscuro    color: #002855; */
   padding: 0.8em;
   border-radius: 6px;
 }
 
-/* Opcional: título del callout */
+/* Título del callout */
 .callout-note .callout-title {
   font-weight: bold;
-  color: black;
+  color: #002855;                      /* título en azul oscuro */
+  font-size: 1.2em;
+  
 }
+
 
 
 
@@ -46,7 +75,7 @@ pre code {
   margin-bottom: 10px;
   border: 2px solid orange;
   border-radius: 10px;
-  background: #ecf7fd 5px center/3em no-repeat;
+  background: #ab2a3e 5px center/3em no-repeat;
 }
 
 
@@ -65,4 +94,8 @@ div.csl-entry {
   clear: both;
   margin-bottom: 10px;
 }
+
+
+
+
 
