@@ -1,11 +1,11 @@
 # Ciencia y tecnología
 
 ::: callout-warning
-### [ ¿Sabías que CLM...?]{style="font-size: 1.8em; color: #c41e3a;"}
+### [🤔 ¿Sabías que CLM...?]{style="font-size: 1.8em; color: #c41e3a;"} 
 
--   Invirtió más de 330 millones en I+D en 2023, con el sector empresarial concentrando el 57% del gasto.
--   Cuenta con más de 98 líneas móviles por cada 100 habitantes y casi 4 millones de accesos NGA instalados.
--   El 99% de las empresas en CLM tiene internet, pero solo el 7,6% utiliza inteligencia artificial?
+-   **Invirtió más de 330 millones en I+D en 2023, con el sector empresarial concentrando el 57 % del gasto.**
+-   **Cuenta con más de 98 líneas móviles por cada 100 habitantes y casi 4 millones de accesos NGA instalados.**
+-   **El 99 % de las empresas en CLM tiene Internet, pero solo el 7,6 % utiliza inteligencia artificial?**
 :::
 
 ```{r librerias}
@@ -30,7 +30,7 @@ cu <-	"#4F7942"
 gu <-	"#2E8B57"
 to <-	"#1E5631"
 
-# matices (mismos colores al 15%)
+# matices (mismos colores al 15 %)
 azul_junta_matiz<- "#c9d6e3"
 rojo_spain_matiz <- "#e6b7b7"
 gris_jccm_matiz <- "#d5d5d6"
@@ -45,9 +45,9 @@ datos <- read_excel("data/datos01_ciencia_tecnologia.xlsx", sheet = "ID_estad_ac
 
 ## Actividades de I+D
 
-[**En 2023, CLM destinó un total de 332,8 millones de euros a Gastos en I+D interna**]{.blue}
+[**En 2023, CLM destinó un total de 332,8 millones de euros a gastos en I+D interna**]{.blue}
 
-Esta cifra representa un **1,49% del total nacional en I+D**, que ascendió a 22.379 millones de euros.
+Esta cifra representa un 1,49 % del total nacional en I+D, que ascendió a 22.379 millones de euros.
 
 ::::::: columns
 ::: {.column width="47%"}
@@ -58,7 +58,7 @@ library(formattable)
 
 # Extraer la fila de gastos en I+D interna (fila 1, columnas 2 a 6)
 gastos <- as.numeric(datos[1, 2:6])
-sectores <- c("Adm. Públicas", "Enseñanza Superior", "Empresas", "IPSFL", "Total")
+sectores <- c("Adm. Públicas", "Enseñanza superior", "Empresas", "IPSFL", "Total")
 
 # Crear data frame
 df_clm <- data.frame(
@@ -89,30 +89,30 @@ df_clm |>
 
 :::: {.column width="47%"}
 ::: callout-note
-### [ El sector empresarial concentra el mayor esfuerzo en I+D en CLM ]{style="font-size: 1.2em; color: azul_jccm;"}
+### [El sector empresarial concentra el mayor esfuerzo en I+D en CLM ]{style="font-size: 1.2em; color: azul_jccm;"}
 
-Absorbe el 57,1% del gasto, seguido por la enseñanza superior (27,4%) y las administraciones públicas (15,3%).
+Absorbe el 57,1 % del gasto, seguido por la enseñanza superior (27,4 %) y las administraciones públicas (15,3 %).
 :::
 ::::
 :::::::
 
 [**La mayor parte del personal dedicado a I+D en CLM trabaja en el sector empresarial**]{.blue}
 
-**La estadística sobre Actividades en I+D** del INE en 2023 indica que en CLM **3.943,4 personas** en equivalente a jornada completa **(EJC)** dedicacas a actividades de I+D. La mayor parte se concentró en el **sector empresarial (45,3%)**, seguido por la **enseñanza superior (36,2%)** y las **administraciones públicas (18,1%)**.
+CLM contó en 2023 con 3.943,4 personas en equivalente a jornada completa, EJC, (medida que representa el trabajo realizado en I+D como si todas las personas implicadas lo hicieran a tiempo completo), según los últimos datos publicados por el INE. El grueso de estos recursos humanos se concentró en el sector empresarial, que absorbió el 45,3 % del total, seguido por la enseñanza superior (36,2 %) y las administraciones públicas (18,1 %).
+
+[**Las mujeres en CLM Representan, aproximadamente, el 42 % del personal total en EJC **]{.blue}
 
 ::: callout-note
-### [Las mujeres en CLM]{style="font-size: 1.2em; color: azul_jccm;"}
+### [CLM presenta una mayor intensidad de innovación en empresas con gasto en innovación y actividades de I+D que España]{style="font-size: 1.2em; color: azul_jccm;"}
 
-Representan aproximadamente el 42% del personal total en EJC, con 1.669 mujeres EJC sobre un total de 3.943 personas EJC.
+En 2022 superó a los valores nacionales en dos de los tres indicadores de intensidad de innovación, medida como el porcentaje que representan los gastos en innovación sobre la cifra de negocios.
 :::
 
-[**CLM presenta una mayor intensidad de innovación en empresas con gasto en innovación y actividades de I+D**]{.blue}
-
-CLM en 2022 **superó a los valores nacionales en dos de los tres indicadores de intensidad de innovación**, medida como el porcentaje que representan los gastos en innovación sobre la cifra de negocios. Sin embargo, en el indicador general —**intensidad de innovación del total de empresas**— CLM **se situó por debajo** del valor nacional, con un 0,75% frente al 0,93% registrado en España.
 
 ```{r}
 #| label: lollipop-innovacion
 #| fig-cap: "Fuente: INE (2022)"
+#| fig-cap-location: bottom
 
 library(ggplot2)
 library(dplyr)
@@ -129,8 +129,8 @@ datos <- data.frame(
 )
 
 # Dataset con segmentos
-segmentos <- datos %>%
-  group_by(Categoria) %>%
+segmentos <- datos |>
+  group_by(Categoria) |>
   summarise(
     x_min = min(Intensidad),
     x_max = max(Intensidad),
@@ -172,7 +172,7 @@ geom_text(aes(label = Intensidad),
 
 ## Telecomunicaciones
 
-[**CLM muestra conectividad desigual entre provincias**]{.blue}
+[**CLM muestra conectividad desigual entre sus provincias**]{.blue}
 
 El análisis de los servicios de telecomunicaciones en CLM revela fuertes contrastes entre provincias. **Guadalajara y Toledo** son las provincias con **mejor desempeño en telefonía fija y banda ancha**.
 
@@ -214,9 +214,10 @@ colores_lineas <- c(ab, cr, cu, gu, to, azul_jccm, rojo_spain)
 # 6.Ajustes de texto y márgenes
 op <- par(
   font.main = 1,          # título sin negrita
-  cex.main  = 1.65,       # tamaño del título
-  cex.axis  = 1.15,       # tamaño de las etiquetas de la escala (0,20,40,...)
-  mar       = c(6, 4, 4, 2) + 0.1  # más margen inferior para la leyenda
+  cex.main  = 1,       # tamaño del título
+  cex.axis  = 1,       # tamaño de las etiquetas de la escala (0,20,40,...)
+#  mar       = c(6, 4, 4, 2) + 0.1  # más margen inferior para la leyenda
+  mar       = c(2, 2, 2, 2)  # más margen inferior para la leyenda
 )
 
 # 7.Dibujar el gráfico de radar
@@ -240,22 +241,27 @@ title(main = "Líneas por cada 100 habitantes (2023)",
 # 9.Añadir la leyenda para identificar las líneas
 legend("topright", legend = rownames(datos_preparados[3:9,]),
 bty = "n", pch = 20, col = colores_lineas,
-text.col = "black", cex = 1.2, pt.cex =3 ,x.intersp = 0.9,y.intersp = 1.0)
+text.col = "black", cex = 1, pt.cex =3 ,x.intersp = 0.9,y.intersp = 1.0)
 ```
 :::
 ::::::
 
-[**Conectividad e infraestructura digital en evolución en CLM**]{.blue}
+[**La infraestructura digital en CLM un 4,6 % del total nacional, lo que sitúa a la comunidad en una posición relevante dentro del despliegue de redes de nueva generación.**]{.blue}
 
-Los datos del INE sobre **Indicadores de servicios e infraestructura de telecomunicaciones** del año 2023 indican que **la televisión de pago** en CLM registra **11,5 abonados por cada 100 habitantes**, una **cifra ligeramente inferior** **al valor nacional** (14,3 abonados). La provincia con **mayor penetración es Guadalajara** (15,7), mientras que **Albacete** presenta **la menor** (8,1).
+La región cuenta con 3,9 millones accesos de nueva generación (o NGA, Next Generation Access) instalados, siendo Toledo la provincia con mayor número (casi 1,3 millones) y Cuenca la de menor (casi de 0,5 millones). 
 
-En cuanto a **infraestructura digital**, la región cuenta con **3.983.928 accesos NGA instalados**, siendo **Toledo** la provincia con **mayor número** de accesos instalados (1.288.366) y **Cuenca la de menor** (434.912). CLM representa aproximadamente un **4,6% del total nacional,** lo que sitúa a la comunidad en una posición relevante dentro del despliegue de redes de nueva generación, aunque con diferencias internas entre provincias.
+<!-- Los datos del INE sobre **Indicadores de servicios e infraestructura de telecomunicaciones** del año 2023 indican que la televisión de pago en CLM registra 11,5 abonados por cada 100 habitantes, una cifra ligeramente inferior al valor nacional (14,3 abonados).  -->
+
+<!-- La provincia con mayor penetración es Guadalajara (15,7), mientras que Albacete presenta la menor (8,1). -->
+
 
 ## Uso de las TIC en empresas
 
-[**El 98,8% de las empresas en CLM cuenta con internet, pero solo la mitad del personal lo usa**]{.blue}
+[**El 98,8% de las empresas en CLM cuenta con Internet, pero sólo la mitad del personal lo usa**]{.blue}
 
-De acuerdo con la **estadística Usos de las técnologías de la información y las comunicaciones** del INE en 2024 en CLM el **99,7%** de **las empresas dispone de ordenadores** y el **98,8% cuenta con conexión a internet**. Sin embargo, el uso por parte del personal es menor: **el 55,8% utiliza ordenadores con fines empresariales y el 49,6% accede a internet en el trabajo**.
+De acuerdo con la estadística Usos de las tecnologías de la información y las comunicaciones (TICs)** del INE en 2024, en CLM el 99,7 % de las empresas dispone de ordenadores y el 98,8 % cuenta con conexión a Internet. 
+
+<!-- Sin embargo, el uso por parte del personal es menor: el 55,8 % utiliza ordenadores con fines empresariales y el 49,6 % accede a Internet en el trabajo. -->
 
 ```{r}
 tic_mas10_tablas <- read_excel("data/datos01_ciencia_tecnologia.xlsx", 
@@ -264,7 +270,7 @@ tic_mas10_tablas <- read_excel("data/datos01_ciencia_tecnologia.xlsx",
 
 [**En CLM las empresas tienen alta presencia en web frente a uso limitado de IA**]{.blue}
 
-El **75,9% de las empresas cuentan con sitio web**, pero solo el **21,2% realizan analítica de datos** internamente y apenas el **7,6% emplean inteligencia artificial** **(IA)** lo que evidencia una fuerte presencia digital básica pero una baja adopción de tecnologías avanzadas.
+El 75,9 % de las empresas cuentan con sitio web, pero solo el 21,2 % realizan analítica de datos internamente y, apenas, el 7,6 % emplean inteligencia artificial (IA) lo que evidencia una fuerte presencia digital básica pero una baja adopción de tecnologías avanzadas.
 
 :::::: columns
 ::: {.column width="66%"}
@@ -272,7 +278,7 @@ El **75,9% de las empresas cuentan con sitio web**, pero solo el **21,2% realiza
 # filtar las filas de la 6 a la 12 del objeto tic_mas10_tablas
 tic_transf_digital <- tic_mas10_tablas[6:11, ]
 
-tic_long <- tic_transf_digital %>%
+tic_long <- tic_transf_digital |>
   pivot_longer(cols = c(`CLM (%)`, `España (%)`),
                names_to = "Region",
                values_to = "Valor")
@@ -307,12 +313,16 @@ ggplot(tic_long, aes(x = Indicador, y = Valor, fill = Region)) +
 ::: callout-note
 ### [El teletrabajo, poco extendido en CLM]{style="font-size: 1.2em; color: azul_jccm;"}
 
-Únicamente el 5,95% de los trabajadores teletrabaja de manera regular.
+Únicamente el 5,95 % de los trabajadores teletrabaja de manera regular.
 :::
 ::::
 ::::::
 
-[**Menos especialistas TIC en CLM, pero más mujeres en el sector**]{.blue}
+::: callout-note
+### [La presencia femenina de especialistas TIC en CLM supera a Esñaña]{style="font-size: 1.2em; color: azul_jccm;"}
+
+Dentro de las empresas que cuentan con especialistas TIC, la presencia femenina alcanza el 45,9 %, superando el valor nacional (41,9 %).
+:::
 
 ```{r}
 #| label: tabla-tic-especialistas
@@ -332,11 +342,10 @@ knitr::kable(tic_especialistas, format = ifelse(knitr::is_latex_output(), "latex
     full_width = FALSE,
     position = "center"
   ) |>
-  row_spec(0, background = rojo_spain, color = "white")
+  row_spec(0, background = rojo_spain, color = "white")|>
+  footnote(general= "(i)Porcentaje sobre el total de empresas (ii)Porcentaje sobre el total de empresas con conexión a Internet          (iii)Porcentaje sobre el total de empresas que emplean especialistas en TIC")
+
+
 ```
 
-::: callout-note
-### [Mujeres especialistas TIC en CLM] {style="font-size: 1.2em; color: azul_jccm;"}
 
-Dentro de las empresas que cuentan con especialistas TIC, la presencia femenina alcanza el 45,9%, superando el valor nacional (41,9%).
-:::
